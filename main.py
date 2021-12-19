@@ -1,17 +1,21 @@
-import random
+import re
 
-choices = ["rock","paper","scissors"]
 
-computer =random.choice(choices)
-player = None
+def check_password(psw):
+    if len(psw) < 8:
+        raise Exception("parola en az 7 karakter olmalidir")
+    elif not re.search("[a-z]",psw):
+        raise Exception("parola kücük harf icermelidir")
+    elif not re.search("[A-Z]",psw):
+        raise Exception("parola büyük harf icermelidir")
+    elif not re.search("[0-9]",psw):
+        raise Exception("parola rakam icermelidir")
+    elif re.search("\s",psw):
+        raise Exception("parola bosluk karakteri iceremez")
 
-while player not in choices:
-    player = input("rock,paper or scissors: ").lower()
+password ="123asdAa"
 
-print("computer:",computer)
-print("player:",player)
-
-if player == computer:
-    print("successful")
-else:
-    print("wrong")
+try:
+    check_password(password)
+except Exception as e:
+    print(e)
